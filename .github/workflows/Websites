@@ -1,36 +1,665 @@
-# This is a basic workflow to help you get started with Actions
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-name: CI
+<title>GCL POWER</title>
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+<style>
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+body{
+background:
+radial-gradient(circle at top,#500000 0%,#0a0a0a 40%),
+linear-gradient(to bottom,#050505,#111);
+color:white;
+overflow-x:hidden;
+}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:25px 40px;
+background:rgba(0,0,0,.7);
+backdrop-filter:blur(10px);
+border-bottom:2px solid #ff1a1a;
+position:sticky;
+top:0;
+z-index:100;
+}
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+.logo{
+font-size:50px;
+font-weight:900;
+letter-spacing:3px;
+background:linear-gradient(to right,#fff,#ff3c3c);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+.settings{
+background:#151515;
+border:1px solid #444;
+color:white;
+padding:12px 18px;
+border-radius:14px;
+cursor:pointer;
+font-size:18px;
+transition:.2s;
+}
+
+.settings:hover{
+background:#222;
+transform:scale(1.05);
+}
+
+.hero{
+min-height:90vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px;
+}
+
+.hero h1{
+font-size:110px;
+font-weight:900;
+line-height:.9;
+margin-bottom:20px;
+text-shadow:0 0 40px rgba(255,0,0,.4);
+}
+
+.hero p{
+font-size:24px;
+color:#bbb;
+margin-bottom:60px;
+}
+
+.genderGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+width:100%;
+max-width:1200px;
+}
+
+.genderBtn{
+height:320px;
+border:none;
+border-radius:40px;
+font-size:80px;
+font-weight:900;
+cursor:pointer;
+color:white;
+transition:.25s;
+box-shadow:0 0 40px rgba(0,0,0,.5);
+}
+
+.genderBtn:hover{
+transform:translateY(-8px) scale(1.02);
+}
+
+.boys{background:linear-gradient(to bottom right,#0066ff,#002a80);}
+.girls{background:linear-gradient(to bottom right,#ff2f92,#8a0048);}
+
+.page{
+padding:50px;
+max-width:1400px;
+margin:auto;
+}
+
+.pageTitle{
+font-size:70px;
+font-weight:900;
+margin-bottom:10px;
+}
+
+.sub{
+font-size:22px;
+color:#bbb;
+margin-bottom:40px;
+}
+
+.back{
+background:#1b1b1b;
+border:1px solid #333;
+padding:14px 20px;
+border-radius:14px;
+color:white;
+cursor:pointer;
+margin-bottom:30px;
+font-size:16px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.card{
+background:linear-gradient(to bottom right,#161616,#0c0c0c);
+border:1px solid #2a2a2a;
+padding:35px;
+border-radius:30px;
+cursor:pointer;
+font-size:28px;
+font-weight:800;
+text-align:center;
+}
+
+.rankTable{
+width:100%;
+border-collapse:collapse;
+border-radius:25px;
+background:#111;
+overflow:hidden;
+}
+
+.rankTable th{
+background:linear-gradient(to right,#a80000,#ff2f2f);
+padding:20px;
+text-align:left;
+}
+
+.rankTable td{
+padding:20px;
+border-bottom:1px solid #222;
+}
+
+.rankNum{color:gold;font-size:30px;font-weight:900;}
+.rating{color:#00ff88;font-size:30px;font-weight:900;}
+
+.hidden{display:none;}
+
+.adminPanel{
+background:#101010;
+border:2px solid red;
+padding:25px;
+border-radius:25px;
+}
+
+.sectionTitle{
+font-size:20px;
+margin:15px 0;
+color:#ffcccc;
+}
+
+.schoolBlock{
+background:#181818;
+padding:20px;
+border-radius:20px;
+margin-bottom:15px;
+border:1px solid #2d2d2d;
+}
+
+.editGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:10px;
+}
+
+input,select{
+padding:12px;
+border-radius:12px;
+background:#1b1b1b;
+color:white;
+border:1px solid #333;
+}
+
+.saveBtn{
+background:#ff2f2f;
+border:none;
+padding:10px;
+border-radius:10px;
+color:white;
+font-weight:900;
+margin-top:10px;
+cursor:pointer;
+}
+
+.logBox{
+background:#0d0d0d;
+padding:15px;
+border-radius:15px;
+max-height:180px;
+overflow:auto;
+border:1px solid #222;
+font-size:13px;
+}
+
+button{cursor:pointer;}
+
+.smallBtn{
+padding:8px 10px;
+border-radius:10px;
+background:#333;
+border:1px solid #555;
+color:white;
+cursor:pointer;
+margin-left:8px;
+font-size:12px;
+}
+
+.smallBtn:hover{
+background:#444;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<div class="logo">GCL POWER</div>
+<button class="settings" onclick="login()">⚙</button>
+</div>
+
+<div id="homePage">
+<div class="hero">
+<h1>POWER<br>RANKINGS</h1>
+<p>Elite Ohio High School Rankings</p>
+
+<div class="genderGrid">
+<button class="genderBtn boys" onclick="openSports('Boys')">BOYS</button>
+<button class="genderBtn girls" onclick="openSports('Girls')">GIRLS</button>
+</div>
+
+</div>
+</div>
+
+<div id="sportsPage" class="page hidden">
+<button class="back" onclick="goHome()">Back</button>
+<h1 class="pageTitle">Select Sport</h1>
+<div class="grid" id="sportsList"></div>
+</div>
+
+<div id="rankingsPage" class="page hidden">
+<button class="back" onclick="backSports()">Back</button>
+<h1 class="pageTitle" id="rankingTitle"></h1>
+
+<select id="yearSelect" onchange="renderRankings()"></select>
+
+<table class="rankTable">
+<thead>
+<tr>
+<th>Rank</th>
+<th>School</th>
+<th>Record</th>
+<th>Conference</th>
+<th>Win Percent</th>
+<th>Rating</th>
+</tr>
+</thead>
+<tbody id="rankingsBody"></tbody>
+</table>
+</div>
+
+<div id="adminPage" class="page hidden">
+<button class="back" onclick="goHome()">Exit</button>
+
+<h1 class="pageTitle">Admin Panel</h1>
+
+<div class="adminPanel">
+
+<div id="ownerTools" class="hidden">
+
+<div class="sectionTitle">Owner Controls</div>
+
+<input id="newSport" placeholder="New Sport">
+<select id="newGender">
+<option>Boys</option>
+<option>Girls</option>
+<option>Both</option>
+</select>
+
+<button class="saveBtn" onclick="addSport()">Add Sport</button>
+
+<div class="sectionTitle">Sports Management</div>
+<div id="sportsAdminList"></div>
+
+<div class="sectionTitle">Admin Accounts</div>
+
+<input id="newAdminUser" placeholder="New Admin Username">
+<input id="newAdminPass" placeholder="Password">
+<button class="saveBtn" onclick="addAdmin()">Create Admin</button>
+
+<div id="adminListBox"></div>
+
+<div class="sectionTitle">Log Book</div>
+<div class="logBox" id="logs"></div>
+
+<div class="sectionTitle">Add School</div>
+
+<input id="schoolName" placeholder="School Name">
+<input id="record" placeholder="Record">
+<input id="conferenceRecord" placeholder="Conference Record">
+<input id="streak" placeholder="Streak">
+<input id="previous" placeholder="Previous Rating">
+<input id="year" placeholder="Year">
+
+<select id="gender">
+<option>Boys</option>
+<option>Girls</option>
+</select>
+
+<select id="sport"></select>
+
+<button class="saveBtn" onclick="addSchool()">Add School</button>
+
+</div>
+
+<div class="sectionTitle">Edit Schools</div>
+<div id="adminList"></div>
+
+</div>
+</div>
+
+<script>
+
+let currentGender=""
+let currentSport=""
+let role=""
+
+let sports=JSON.parse(localStorage.getItem("sports")||"[]")
+let schools=JSON.parse(localStorage.getItem("schools")||"[]")
+let logs=JSON.parse(localStorage.getItem("logs")||"[]")
+let admins=JSON.parse(localStorage.getItem("admins")||"[{\"u\":\"staff1\",\"p\":\"staff123\"}]")
+
+function save(){
+localStorage.setItem("sports",JSON.stringify(sports))
+localStorage.setItem("schools",JSON.stringify(schools))
+localStorage.setItem("logs",JSON.stringify(logs))
+localStorage.setItem("admins",JSON.stringify(admins))
+}
+
+function log(msg,user){
+logs.unshift("["+(user||"system")+"] "+msg)
+save()
+renderLogs()
+}
+
+function renderLogs(){
+document.getElementById("logs").innerHTML=logs.slice(0,30).join("<br>")
+}
+
+function calcPct(r){
+if(!r) return 0
+let parts=String(r).replace(/[^0-9 ]/g," ").trim().split(" ")
+let w=Number(parts[0])||0
+let l=Number(parts[1])||0
+return Math.round((w/(w+l||1))*100)
+}
+
+function calcRating(w,c,s,p){
+w=Number(w)||0
+c=Number(c)||0
+s=Number(s)||0
+p=Number(p)||0
+let r=w*0.75+c*0.15+s*1.5+p*0.1
+if(r>100)r=100
+if(r<10)r=10
+return Math.round(r)
+}
+
+function openSports(g){
+currentGender=g
+document.getElementById("homePage").classList.add("hidden")
+document.getElementById("sportsPage").classList.remove("hidden")
+
+let html=""
+sports.forEach(s=>{
+if(s.gender==="Both"||s.gender===g){
+html+=`<div class="card" onclick="openRankings('${s.name}')">${s.name}</div>`
+}
+})
+document.getElementById("sportsList").innerHTML=html
+}
+
+function openRankings(s){
+currentSport=s
+document.getElementById("sportsPage").classList.add("hidden")
+document.getElementById("rankingsPage").classList.remove("hidden")
+document.getElementById("rankingTitle").innerText=currentGender+" "+s
+
+let years=[...new Set(schools.map(x=>x.year||"2026"))]
+document.getElementById("yearSelect").innerHTML=years.map(y=>`<option>${y}</option>`).join("")
+renderRankings()
+}
+
+function renderRankings(){
+let y=document.getElementById("yearSelect").value||"2026"
+
+let list=schools.filter(x=>x.gender===currentGender&&x.sport===currentSport&&(x.year||"2026")===y)
+
+list.sort((a,b)=>calcPct(b.record)-calcPct(a.record))
+
+document.getElementById("rankingsBody").innerHTML=list.map((x,i)=>{
+let w=calcPct(x.record)
+let c=calcPct(x.conferenceRecord)
+let s=+x.streak||0
+let p=+x.previous||0
+let r=calcRating(w,c,s,p)
+
+return `<tr>
+<td class="rankNum">${i+1}</td>
+<td>${x.name}</td>
+<td>${x.record}</td>
+<td>${x.conferenceRecord}</td>
+<td>${w}%</td>
+<td class="rating">${r}</td>
+</tr>`
+}).join("")
+}
+
+function login(){
+let u=prompt("Username")
+let p=prompt("Password")
+
+let found=admins.find(a=>a.u===u&&a.p===p)
+
+if(found){
+role=u
+openAdmin()
+return
+}
+
+if(u==="gordonh15769"&&p==="hunhedg6"){
+role="owner"
+openAdmin()
+return
+}
+
+alert("Wrong login")
+}
+
+function openAdmin(){
+document.getElementById("adminPage").classList.remove("hidden")
+
+if(role==="owner"){
+document.getElementById("ownerTools").classList.remove("hidden")
+renderAdminSports()
+renderAdminAccounts()
+populateSportDropdown()
+}
+
+renderAdmin()
+renderLogs()
+}
+
+function renderAdmin(){
+
+let html=""
+
+schools.forEach((s,i)=>{
+html+=`
+<div class="schoolBlock">
+
+<div><b>${s.name}</b> ${s.sport}</div>
+
+<div class="editGrid">
+
+<div>
+<div>Record</div>
+<input value="${s.record}" onchange="updateSchool(${i},'record',this.value)">
+</div>
+
+<div>
+<div>Conference Record</div>
+<input value="${s.conferenceRecord}" onchange="updateSchool(${i},'conferenceRecord',this.value)">
+</div>
+
+<div>
+<div>Streak</div>
+<input value="${s.streak}" onchange="updateSchool(${i},'streak',this.value)">
+</div>
+
+<div>
+<div>Previous Rating</div>
+<input value="${s.previous}" onchange="updateSchool(${i},'previous',this.value)">
+</div>
+
+<div>
+<div>Year</div>
+<input value="${s.year}" onchange="updateSchool(${i},'year',this.value)">
+</div>
+
+</div>
+
+${role==="owner" ? `<button class="smallBtn" onclick="deleteSchool(${i})">Delete School</button>` : ""}
+
+</div>
+`
+})
+
+document.getElementById("adminList").innerHTML=html
+}
+
+function updateSchool(i,key,val){
+schools[i][key]=val
+save()
+log(role+" edited "+schools[i].name+" "+key,role)
+renderAdmin()
+renderRankings()
+}
+
+function deleteSchool(i){
+if(role!=="owner") return
+let name=schools[i].name
+schools.splice(i,1)
+save()
+log("owner deleted school "+name,"owner")
+renderAdmin()
+renderRankings()
+}
+
+function addSport(){
+sports.push({name:newSport.value,gender:newGender.value})
+save()
+renderAdminSports()
+populateSportDropdown()
+}
+
+function renderAdminSports(){
+let html=""
+sports.forEach((s,i)=>{
+html+=`
+<div class="schoolBlock">
+${s.name} ${s.gender}
+<button class="smallBtn" onclick="deleteSport(${i})">Delete</button>
+</div>
+`
+})
+document.getElementById("sportsAdminList").innerHTML=html
+}
+
+function deleteSport(i){
+if(role!=="owner") return
+let name=sports[i].name
+sports.splice(i,1)
+save()
+log("owner deleted sport "+name,"owner")
+renderAdminSports()
+populateSportDropdown()
+}
+
+function addAdmin(){
+admins.push({u:newAdminUser.value,p:newAdminPass.value})
+save()
+renderAdminAccounts()
+log("owner created admin "+newAdminUser.value,"owner")
+}
+
+function renderAdminAccounts(){
+let html=""
+admins.forEach((a,i)=>{
+html+=`
+<div class="schoolBlock">
+${a.u}
+<button class="smallBtn" onclick="deleteAdmin(${i})">Delete</button>
+</div>
+`
+})
+document.getElementById("adminListBox").innerHTML=html
+}
+
+function populateSportDropdown(){
+
+document.getElementById("sport").innerHTML=
+sports.map(s=>`<option value="${s.name}">${s.name}</option>`).join("")
+
+}
+
+function deleteAdmin(i){
+admins.splice(i,1)
+save()
+renderAdminAccounts()
+}
+
+function addSchool(){
+
+schools.push({
+id:Date.now(),
+name:document.getElementById("schoolName").value,
+record:document.getElementById("record").value,
+conferenceRecord:document.getElementById("conferenceRecord").value,
+streak:document.getElementById("streak").value,
+previous:document.getElementById("previous").value,
+sport:document.getElementById("sport").value,
+gender:document.getElementById("gender").value,
+year:document.getElementById("year").value || "2026"
+})
+
+save()
+
+log(role+" added school "+document.getElementById("schoolName").value,role)
+
+renderAdmin()
+renderRankings()
+
+}
+
+function goHome(){location.reload()}
+
+function backSports(){
+document.getElementById("rankingsPage").classList.add("hidden")
+document.getElementById("sportsPage").classList.remove("hidden")
+}
+
+</script>
+
+</body>
+</html>
+```
